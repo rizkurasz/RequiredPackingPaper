@@ -23,46 +23,52 @@ public class PackingPaper {
     }
     
     public static void main(String[] args) throws FileNotFoundException, IOException {        
-    int suma = 0;   
-
+    int totalPaper = 0;   
     int i=0; 
-    String[] Test={};
+    String[] inputString={};
 
     Scanner in = new Scanner(new File("c:\\test_input.txt")).useDelimiter("x");
     //import data file from drive c:/
     
     StringBuilder sb = new StringBuilder();
-   
+    //build input string
+    
     while(in.hasNextLine()){
         sb.append(in.nextLine() +"x");
-        //change new line to x
-        Test=sb.toString().split("x");
+        //add x at end of the line
+        inputString=sb.toString().split("x");
+        //build string with splited dimensions of boxes 
     }    
     in.close();
  
-        int[] Test3=new int[Test.length];         
-        for(i = 0; i<Test.length;i++){
-        Test3[i]=(Integer.valueOf(Test[i]));
+        int[] inputArray=new int[inputString.length];
+        //array with splited data strings
+        for(i = 0; i<inputString.length;i++){
+            //conert string array to int array
+        inputArray[i]=(Integer.valueOf(inputString[i]));
         }
 
-        int[][] Test2=new int[Test3.length/3][3];        
+        int[][] inputMatrix=new int[inputArray.length/3][3];   
+       
       int l=0;
       i = 0;
-        while(i<Test3.length){
+        while(i<inputArray.length){
+            //build data int matrix with dimensions of boxes
             for (int k =0; k<3; k++){
-                if (i<Test3.length){
-                    Test2[l][k]=Test3[i];
+                if (i<inputArray.length){
+                    inputMatrix[l][k]=inputArray[i];
                     i++;
                 }
                 }
             l++;
             }
                
-    for (i=0; i<Test2.length;i++){
-        suma=suma+requiredPackingPaper(Test2[i][0],Test2[i][1],Test2[i][2]);
+    for (i=0; i<inputMatrix.length;i++){
+        //calculate paper area for all boxes
+        totalPaper=totalPaper+requiredPackingPaper(inputMatrix[i][0],inputMatrix[i][1],inputMatrix[i][2]);
     }        
 
-    System.out.println(suma);
+    System.out.println(totalPaper);
     }
     
 }
